@@ -102,16 +102,34 @@ def caesar_decrypt(input_string):
 	return caesar_shift(input_string,num_of_shift)
 
 def greedy_decrypt(input_string):
-	pass
+	for i in range(1,1000000):
+		current_score = score(input_string)
+		new_string = substitution_encrypt(input_string)
 
-def main():
-	input_string = raw_input('Enter the string you want to encrypt:')
-	shift = input('Enter shift:')
-	print ('------Encrypting------')
-	print 'Message: ' + input_string
-	print 'Encrypted Message: ' + caesar_shift(input_string,shift)
-	print ('------Decrypting------')
-	print caesar_decrypt(caesar_shift(input_string,shift))
+		if score(new_string) > current_score:
+			current_score = score(new_string)
+			print new_string
+	'''
+	while true:
+	generate new rule
+	apply new rule
+	calculate new score
+	if new score is higher:
+		apply new rule
+	if new score is not higher:
+		apply new rule, sometimes
+	'''
 
-if __name__ == '__main__':
-	main()
+greedy_decrypt('Iuruxrkyy mxkkt ojkgy yrkkv laxouayre')
+
+# def main():
+# 	input_string = raw_input('Enter the string you want to encrypt:')
+# 	shift = input('Enter shift:')
+# 	print ('------Encrypting------')
+# 	print 'Message: ' + input_string
+# 	print 'Encrypted Message: ' + caesar_shift(input_string,shift)
+# 	print ('------Decrypting------')
+# 	print caesar_decrypt(caesar_shift(input_string,shift))
+
+# if __name__ == '__main__':
+# 	main()
