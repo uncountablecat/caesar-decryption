@@ -95,8 +95,6 @@ def caesar_decrypt(input_string):
 	num_of_shift = 0
 
 	for c in range(0,26):
-		print 'Trying shift = ' + str(c) + '\t',
-		print caesar_shift(input_string,c)
 		if score(caesar_shift(input_string,c))>current_score:
 			current_score = score(caesar_shift(input_string,c))
 			num_of_shift = c
@@ -144,8 +142,14 @@ def main():
 
 	elif action == 'decrypt':
 		print 'Decrypting file......'
-		# decrypt file
-		print 'Decrypted file saved at' + '\"decrypted_' + input_file_name
+
+		input_file = open(input_file_name,'r')
+		output_file = open('decrypted_' + input_file_name, 'w')
+		input_file_content = input_file.readlines()
+
+		for sentence in input_file_content:
+			output_file.write((caesar_decrypt(sentence)))
+		print 'Decrypted file save at ' + '\"decrypted_' + input_file_name + '\"'
 
 if __name__ == '__main__':
 	main()
