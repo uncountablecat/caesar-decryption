@@ -1,8 +1,9 @@
 from string import maketrans
 import random
+import sys
 
 
-# Global variable
+# Global variable used in decrypting algorithm
 epsilon = 0.00000000001
 
 
@@ -22,6 +23,7 @@ del frequency_list[0]
 frequency_list[-1] = '0.0000000319756700559721'
 frequency_list = [float(x) for x in frequency_list]
 
+# This dictionary has the words and the corresponding probability
 frequency_table = {}
 for i in range(0,len(word_list)):
 	frequency_table[word_list[i]] = frequency_list[i]
@@ -120,16 +122,30 @@ def greedy_decrypt(input_string):
 		apply new rule, sometimes
 	'''
 
-greedy_decrypt('Iuruxrkyy mxkkt ojkgy yrkkv laxouayre')
+def main():
+	input_file_name = sys.argv[1]
+	action = sys.argv[2]
 
-# def main():
-# 	input_string = raw_input('Enter the string you want to encrypt:')
-# 	shift = input('Enter shift:')
-# 	print ('------Encrypting------')
-# 	print 'Message: ' + input_string
-# 	print 'Encrypted Message: ' + caesar_shift(input_string,shift)
-# 	print ('------Decrypting------')
-# 	print caesar_decrypt(caesar_shift(input_string,shift))
+	shift = 3
+	if len(sys.argv) == 4:
+		shift = sys.argv[3]
+	shift = int(shift)
 
-# if __name__ == '__main__':
-# 	main()
+	if action == 'encrypt':
+		print 'Encryting file......'
+
+		input_file = open(input_file_name,'r')
+		output_file = open('encrypted_' + input_file_name, 'w')
+		input_file_content = input_file.readlines()
+
+		for sentence in input_file_content:
+			output_file.write((caesar_shift(sentence,shift)))
+		print 'Encrypted file saved at ' + '\"encrypted_' + input_file_name + '\"'
+
+	elif action == 'decrypt':
+		print 'Decrypting file......'
+		# decrypt file
+		print 'Decrypted file saved at' + '\"decrypted_' + input_file_name
+
+if __name__ == '__main__':
+	main()
